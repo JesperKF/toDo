@@ -1,7 +1,4 @@
-.colorDone {
-  background-color: green;
-}
-
-.colorToDo {
-  background-color: red;
+.done {
+  text-decoration: line-through;
+  color: black;
 }
