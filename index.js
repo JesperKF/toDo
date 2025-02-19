@@ -51,6 +51,7 @@ function createListItem(taskObj) {
     // Eventlisteneren stopper propagation, så det ikke påvirker <li> itemet
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "-";
+    deleteButton.classList.add("deleteButton");
     deleteButton.addEventListener("click", (event) => {
         event.stopPropagation();
         deleteTask(taskObj.id);

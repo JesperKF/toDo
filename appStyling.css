@@ -1,6 +1,70 @@
 @import url("https://fonts.googleapis.com/css2?family=Baumans&display=swap");
 
+body {
+  font-family: "Baumans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5ede0;
+  color: #333;
+}
+
+input,
+button,
+ul {
+  margin: 10px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 20px;
+  border: 1px solid #333;
+  width: 200px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 50%;
+  border: none;
+  background-color: #17676e;
+  color: #f5ede0;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #124f54;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  background: linear-gradient(to right, #ee892f, #f5ede0);
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li .deleteButton {
+  background-color: #9c1d18;
+  margin-left: 50px;
+}
+
 .done {
   text-decoration: line-through;
   color: black;
+  background: #5e8e44;
 }
+
+/* .done {
+  text-decoration: line-through;
+  color: black;
+} */
