@@ -27,6 +27,9 @@ function addToArray() {
 
         // Tømmer input feltet
         inputField.value = "";
+
+        // Her gemmes opgaverne i local storage
+        saveTasksToLocalStorage();
     }
 }
 
@@ -41,8 +44,11 @@ function createListItem(taskObj) {
         listItem.classList.toggle("done");
         taskObj.done = !taskObj.done;
         updateTaskList();
+        saveTasksToLocalStorage();
     });
 
+    // Opretter en delete knap og tilføjer en eventlistener til den
+    // Eventlisteneren stopper propagation, så det ikke påvirker <li> itemet
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "-";
     deleteButton.addEventListener("click", (event) => {
@@ -55,11 +61,12 @@ function createListItem(taskObj) {
     return listItem;
 }
 
-// Funktion til at opdatere opgavelisterne
+// Funktion til at opdatere listen i HTML'en
 function updateTaskList() {
     arrayList.innerHTML = "";
     doneList.innerHTML = "";
 
+// Her laver jeg en forEach loop der kører igennem toDoArr og tilføjer opgaverne til listen i HTML'en
     toDoArr.forEach(task => {
         const listItem = createListItem(task);
         if (task.done) {
@@ -78,45 +85,22 @@ addButton.addEventListener("click", addToArray);
 function deleteTask(id) {
     toDoArr = toDoArr.filter(task => task.id !== id);
     updateTaskList();
+    saveTasksToLocalStorage();
 }
 
+// Funktion til at gemme opgaverne i local storage
+function saveTasksToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(toDoArr));
+}
 
+// Funktion til at hente opgaverne fra local storage
+function loadTasksFromLocalStorage() {
+    const tasks = localStorage.getItem("tasks");
+    if (tasks) {
+        toDoArr = JSON.parse(tasks);
+        updateTaskList();
+    }
+}
 
-
-
-
-// const toDoList = document.querySelector(".to_do_list");
-
-// const toDoArr = [
-// {id: self.crypto.randomUUID(), text: "Gåtur med lille Mona", done: false},
-// {id: self.crypto.randomUUID(), text: "Køb mælk med hjem", done: true}, 
-// {id: self.crypto.randomUUID(), text: "Øv din skala", done: false},
-// ];
-
-// showToDo();
-
-// function showToDo() {
-//     toDoList.innerHTML = "";
-//     toDoArr.forEach((task) => {
-//         const li = document.createElement("li");
-//         li.innerHTML += `<h3>${task.text}</h3><button class="mark_toggle_done">Toggle done</button>`;
-//         li.classList.add(task.done?"colorDone" : "colorToDo");
-
-//         li.addEventListener("click", (evt) => {
-//             const currentTarget = evt.currentTarget;
-//             const target = evt.target;
-            
-//                 console.log("currentTarget", currentTarget);
-//                 console.log("target", target);
-
-//                 if (target.classList.contains("mark_toggle_done")) {
-//                     console.log("JEG HAR KLIKKET PÅ TOGGLE DONE");
-//                     task.done = !task.done;
-                  
-//                     console.log("toDoArr", toDoArr);
-//                     showToDo();
-//                 }
-//         });
-//         toDoList.appendChild(li);
-//     });
-// }
+//Her hentes opgaverne fra local storage når siden indlæses
+loadTasksFromLocalStorage();
